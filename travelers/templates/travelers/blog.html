@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Basic Meta Tags -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <!-- Site Metas -->
+      <title>Blog</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- CSS Links -->
+      <link rel="stylesheet" type="text/css" href="{% static 'travelers/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'travelers/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'travelers/css/responsive.css' %}">
+      <link rel="icon" href="{% static 'travelers/images/fevicon.png' %}" type="image/gif" />
+      <link rel="stylesheet" href="{% static 'travelers/css/jquery.mCustomScrollbar.min.css' %}">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Righteous&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'travelers/css/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'travelers/css/owl.theme.default.min.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   </head>
+   <body>
+      <!-- Header Section Start -->
+      <div class="header_section">
+         <div class="header_main">
+            <div class="mobile_menu">
+               <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <div class="logo_mobile"><a href="{% url 'travelers:home' %}"><img src="{% static 'travelers/images/logo.png' %}" alt="Logo"></a></div>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                     <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'travelers:home' %}">Home</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link " href="{% url "travelers:profile" %}">Profile</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'travelers:about' %}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'travelers:services' %}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'travelers:blog' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'travelers:contact' %}">Contact</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><form method='post' action="{% url "travelers:logout" %}">{% csrf_token %}<button
+                           class='button-text-only' type="submit">Logout</button>
+                           </form></li>
+                        {% endif %}
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+            <div class="container-fluid">
+               <div class="logo"><a href="{% url 'travelers:home' %}"><img src="{% static 'travelers/images/logo.png' %}" alt="Logo"></a></div>
+               <div class="menu_main">
+                  <ul>
+                     <li class="active"><a href="{% url 'travelers:home' %}">Home</a></li>
+                     <li><a href="{% url 'travelers:about' %}">About</a></li>
+                     <li><a href="{% url 'travelers:services' %}">Services</a></li>
+                     <li><a href="{% url 'travelers:blog' %}">Blog</a></li>
+                     <li><a href="{% url 'travelers:contact' %}">Contact</a></li>
+                     {% if user.is_authenticated %}
+                     <li><a href="{% url "travelers:profile" %}">Profile</a></li>
+                     <li><form method='post' action="{% url "travelers:logout" %}">{% csrf_token %}<button
+                        class='button-text-only' type="submit">Logout</button>
+                        </form></li>
+                     {% endif %}
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Header Section End -->
+      
+      <!-- Blog Section Start -->
+      <div class="blog_section layout_padding margin_top_90">
+         <div class="container">
+            <h1 class="blog_taital">See Our Video</h1>
+            <p class="blog_text">Many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which</p>
+            <div class="play_icon_main">
+               <div class="play_icon"><a href="#"><img src="{% static 'travelers/images/play-icon.png' %}" alt="Play Icon"></a></div>
+            </div>
+         </div>
+      </div>
+      <!-- Blog Section End -->
+      
+      <!-- Footer Section Start -->
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="input_btn_main">
+               <input type="text" class="mail_text" placeholder="Enter your email" name="Enter your email">
+               <div class="subscribe_bt"><a href="#">Subscribe</a></div>
+            </div>
+            <div class="location_main">
+               <div class="call_text"><img src="{% static 'travelers/images/call-icon.png' %}" alt="Phone Icon"></div>
+               <div class="call_text"><a href="#">Call +01 1234567890</a></div>
+               <div class="call_text"><img src="{% static 'travelers/images/mail-icon.png' %}" alt="Mail Icon"></div>
+               <div class="call_text"><a href="mailto:demo@gmail.com">demo@gmail.com</a></div>
+            </div>
+            <div class="social_icon">
+               <ul>
+                  <li><a href="#"><img src="{% static 'travelers/images/fb-icon.png' %}" alt="Facebook"></a></li>
+                  <li><a href="#"><img src="{% static 'travelers/images/twitter-icon.png' %}" alt="Twitter"></a></li>
+                  <li><a href="#"><img src="{% static 'travelers/images/linkedin-icon.png' %}" alt="LinkedIn"></a></li>
+                  <li><a href="#"><img src="{% static 'travelers/images/instagram-icon.png' %}" alt="Instagram"></a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- Footer Section End -->
+      
+      <!-- Copyright Section Start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free HTML Templates</a></p>
+         </div>
+      </div>
+      <!-- Copyright Section End -->
+
+      <!-- JavaScript Files -->
+      <script src="{% static 'travelers/js/jquery.min.js' %}"></script>
+      <script src="{% static 'travelers/js/popper.min.js' %}"></script>
+      <script src="{% static 'travelers/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'travelers/js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'travelers/js/plugin.js' %}"></script>
+      <script src="{% static 'travelers/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'travelers/js/custom.js' %}"></script>
+      <script src="{% static 'travelers/js/owl.carousel.js' %}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>    
+   </body>
+</html>

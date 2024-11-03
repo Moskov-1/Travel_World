@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href=" {% static "travelers/css/signup.css" %} ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" >
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body class="antialiased font-sans bg-gradient-to-r from-orange-800 via-red-700 to-yellow-600">
+
+    <main class="bg-gray-100 mb-12 sm:w-full md:max-w-md lg:max-w-lg mx-auto p-8 md:p-12 my-5 rounded-lg shadow-2xl">
+        <section class="xs:max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-5">
+            <h3 class="font-bold text-2xl">SignUp here</h3>
+            {% if not messages %}
+            <p class="text-gray-600 pt-2">Deals with great offer! </p>
+            {% else %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <p class="text-green-600 pt-3">{{message}} 
+                    </p>
+                    <u>
+                        <a href="{% url "travelers:login" %}" class="font-bold hover:underline">Login</a>
+                    </u>
+                    {% elif message.tags == 'error' %}
+                    <p class="text-red-600 pt-3">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        
+
+        <section class="bg-gray-800 rounded-lg py-4 mx-auto">
+            <form id="register" class="text-sm m-8 xs:p-4 sm:p-4 md:p-8 lg:p-2" 
+            method="POST" action="{% url "travelers:signup_check" %}">
+            {% csrf_token %}
+                <div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="username" name="username" type="text" placeholder="">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="username">
+                        User Name
+                    </label>
+                </div>
+                <div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="firstname" name="firstname" type="text" placeholder="">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="firstname">
+                        First Name
+                    </label>
+                </div><div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="lastname" name="lastname" type="text" placeholder="">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="lastname">
+                        Last Name
+                    </label>
+                </div>
+                <div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="email" name="email" type="email" placeholder="E-mail Address">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="email">
+                        E-mail Address
+                    </label>
+                </div>
+                <div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="password" name="password" type="password" placeholder="Password">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="password">
+                        Password
+                    </label>
+                </div>
+                <div class="relative border rounded mb-4 shadow appearance-none label-floating">
+                    <input class="w-full py-2 px-3 text-black leading-normal rounded" id="confirm-password" name="password_confirmation" type="password" placeholder="Confirm Password">
+                    <label class="absolute block text-black top-0 left-0 w-full px-3 py-2 leading-normal" for="confirm-password">
+                        Confirm Password
+                    </label>
+                </div>
+                <div class="flex flex-wrap py-2 items-center justify-evenly">
+                    <div class="sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 h-12 text-center align-baseline">
+                        <input class="bg-black hover:bg-white hover:text-black text-white w-full py-2 px-4 rounded" type="submit" value="SignUp" />
+                    </div>
+                    <div class="sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 h-12 text-center align-baseline">
+                        <a class="inline-block align-baseline text-gray-400 hover:text-white" href="#" onclick="document.getElementById('register').reset(); return false;">
+                            Clear Form
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <div class="xs:max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-5 my-5">
+            <p class="text-black">
+                Already have an account? <a href="{% url "travelers:login" %}" class="font-bold hover:underline">Login here</a>.
+            </p>
+        </div>
+
+    </main>
+
+</body>
+</html>
