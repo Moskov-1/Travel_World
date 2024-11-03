@@ -9,7 +9,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages 
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.core.mail import send_mail, send_mass_mail # plan to use mass mail later.
+from django.core.mail import send_mail, EmailMessage, send_mass_mail # plan to use mass mail later.
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .tokens import token
 
 from travel_world import settings
 # Create your views here.
@@ -70,8 +75,9 @@ def signup_check(request):
         user.first_name = first_name
         user.last_name = last_name
         user.is_staff = True
+        user.is_active = False
         user.save()
-
+        
         # welcome email
         subject = 'Welcome to Travelers World'
         message = f'Hello {user.username}!\nWelcome to Travelers World.\nThank you for considering us.\nPlease check your email {user.email} to confirm your registration.\nThank you.\n- Raihan Rony'
@@ -79,6 +85,20 @@ def signup_check(request):
         from_email = settings.EMAIL_HOST_USER
         to_list = [user.email]
         send_mail(subject, message, from_email, to_list, fail_silently=True)
+
+        # confirmation email
+
+        current_site = get_current_site(request)
+        subject = 'Confirm your email to Travelers World'
+        message = render_to_string('travelers/confirm_email.html', {
+            'name': user.first_name,
+            'domain': current_site.domain,
+            'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
+            'token' : token.make_token(user),
+        })
+        email = EmailMessage(subject, message, from_email, [user.email])        
+        email.send(fail_silently=True)
+        
         messages.success(request, 'Account created successfully')
         return HttpResponseRedirect(reverse('travelers:signup'))
 
@@ -123,4 +143,17 @@ def profile(request):
     else :
         return render(request, 'travelers/profile.html')
         
-   
+def activate_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None 
+    
+    if user and token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('travelers:home')
+    else:
+        return render(request, 'travelers/activation_failed.html')

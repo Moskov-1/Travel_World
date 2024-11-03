@@ -15,5 +15,6 @@ urlpatterns = [
     path('log_verify/', views.signin_check, name='signin_check'),
     path('profile/', views.profile, name='profile'),
     path('logout/', auth_views.LogoutView.as_view(next_page='travelers:home'), name='logout'),
+    path('activate_email/<uidb64>/<token>/', views.activate_email, name='activate_email'),
 
 ]

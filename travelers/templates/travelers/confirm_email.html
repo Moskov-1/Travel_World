@@ -1,0 +1,5 @@
+{% autoescape off %}
+Welcome to Travel World !
+Hello {{name}}
+Please Confrim your email by clicking this link: http://{{domain}}{% url "acitvate_email" uidb64=uid token = token %}
+{% endautoescape %}
