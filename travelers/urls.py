@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 app_name = 'travelers'
 urlpatterns = [
     path('', views.home, name='home'),
-    path('blog/>', views.blog, name='blog'),
+    path('blog/', views.blog, name='blog'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('services/', views.services, name='services'),
