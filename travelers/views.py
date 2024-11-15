@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from .tokens import token
+from .models import Locations
 
 from travel_world import settings
 # Create your views here.
@@ -29,7 +30,8 @@ def blog(request):
 def contact(request):
     return render(request, 'travelers/contact.html')
 def services(request):
-    return render(request, 'travelers/services.html')
+    locations = Locations.objects.all()
+    return render(request, 'travelers/services.html',{'locations':locations})
 def about(request):
     return render(request, 'travelers/about.html')
 
