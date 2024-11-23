@@ -21,7 +21,10 @@ from travel_world import settings
 # Create your views here.
 
 def home(request):
-    return render(request, 'travelers/index.html')
+    context = {
+        'locations' : Locations.objects.all(), 
+    }
+    return render(request, 'travelers/index.html', context)
 
 # blog, contact, services, about
 

@@ -158,6 +158,18 @@
                      <div><img src="{% static "travelers/images/img-3.png" %} " class="services_img"></div>
                      <div class="btn_main"><a href="#">Camping</a></div>
                   </div>
+                  {% for loc in locations %}
+                  <div class="col-md-4">
+                      {% if  loc.main_image.url %}
+                      <div><img src="{{loc.main_image.url}}" alt="{{loc.name}}_main" class="services_img"></div>
+                      {% else %}
+                      <div><img src="" alt="{{loc.name}}_main" class="services_img"></div>
+
+                      {% endif %}  
+                     <div class="btn_main"><a href="#">{{loc.name}}</a></div>
+                     
+                  </div>
+                  {% endfor %}
                </div>
             </div>
          </div>
